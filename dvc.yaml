@@ -1,0 +1,12 @@
+stages:
+  prepare:
+    cmd: python process_data.py
+    deps:
+    - data/census.csv
+    - process_data.py
+    params:
+    - data.target_variable
+    - data.test_size
+    - prepare.input_data
+    - prepeare.data_output
+    - random_state
