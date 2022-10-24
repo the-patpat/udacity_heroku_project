@@ -58,5 +58,5 @@ def inference(model, X):
     preds : np.array
         Predictions from the model.
     """
-    preds = model.predict_proba(X)
+    preds = model.predict(X)
     return preds
