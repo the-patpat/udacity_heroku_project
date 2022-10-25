@@ -25,3 +25,23 @@ stages:
         prepare.data_output: ./data
         prepare.input_data: ./data/census.csv
         random_state: 42
+  train:
+    cmd: python train_model.py
+    deps:
+    - path: data/train_features.csv
+      md5: 19d530e7408515b8905c3816cbdbaa4a
+      size: 11455417
+    - path: data/train_targets.csv
+      md5: 15b6dd9476c58c754c2604aa24b01b39
+      size: 52098
+    - path: train_model.py
+      md5: c3f894425b694d2e9b498a71bc9c69f3
+      size: 1795
+    params:
+      params.yaml:
+        prepare.data_output: ./data
+        train.model_output: ./model/lrc_census.joblib
+    outs:
+    - path: model/lrc_census.joblib
+      md5: a3510e05006356a75c5062122aeeaced
+      size: 2975

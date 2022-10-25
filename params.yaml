@@ -13,4 +13,6 @@ data:
 prepare:
   input_data: ./data/census.csv
   data_output: ./data
+train:
+  model_output: ./model/lrc_census.joblib
 random_state: 42
