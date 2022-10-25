@@ -44,6 +44,9 @@ stages:
     - eval_model.py
     - data/train_unencoded.csv
     - data/test_unencoded.csv
+    - data/lb.joblib
     params:
     - prepare.data_output
     - train.model_output
+    outs:
+    - slice_output.txt

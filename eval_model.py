@@ -112,30 +112,51 @@ logging.info(
 train['salary_pred'] = y_train_preds
 test['salary_pred'] = y_test_preds
 
-#Need to binarize label to enable comparison
-# <=50K == 0
-# >50K == 1
-num_classes = len(train['salary'].unique())
-for cl, val in enumerate(train['salary'].unique()):
-    train.loc[train['salary'] == val, 'salary'] = num_classes- 1 - cl
-assert (train['salary'] == y_train.iloc[:, 0]).all(), "Label mismatch"
+#Load label binarizer
+lb = joblib.load(
+    os.path.join(
+        params['prepare']['data_output'],
+        'lb.joblib'
+    )
+)
 
-for cl, val in enumerate(test['salary'].unique()):
-    test.loc[test['salary'] == val, 'salary'] = cl
+#Binarize targets for comparison. Could also be done by loading the files
+train['salary'] = lb.transform(train['salary'])
+test['salary'] = lb.transform(test['salary'])
+
+# Check that the lb is doing the job properly
+assert (train['salary'] == y_train.iloc[:, 0]).all(), "Label mismatch"
 assert (test['salary'] == y_test.iloc[:, 0]).all(), "Label mismatch"
 
 # Compute slice performance
+metrics_df = pd.DataFrame()
 for cat in params['data']['cat_features']:
     for value in train[cat].unique():
+        
+        #Get the group slices
+        #Use astype int to have the correct type
         y_group_preds_tr = train[train[cat]==value]['salary_pred'].astype(int)
         y_group_tgts_tr = train[train[cat]==value]['salary'].astype(int)
         y_group_preds_ts = test[train[cat]==value]['salary_pred'].astype(int)
         y_group_tgts_ts = test[train[cat]==value]['salary'].astype(int)
-        logging.info(y_group_preds_tr)
-        logging.info(y_group_tgts_tr)
+
+        #Compute the metrics
         p_tr, r_tr, f_beta_tr = compute_model_metrics(y_group_tgts_tr, y_group_preds_tr)
         p_ts, r_ts, f_beta_ts = compute_model_metrics(y_group_tgts_ts, y_group_preds_ts)
-        print(
+
+        metrics_df = pd.concat(
+            [metrics_df,
+            pd.DataFrame(
+                [
+                    [cat, value, 'train', p_tr, r_tr, f_beta_tr],
+                    [cat, value, 'test', p_ts, r_ts, f_beta_ts]
+                ]
+            )]
+        )
+
+        
+        #Log the metrics
+        logging.info(
             f"""
             ---- Slice Analysis ----
             For group {value} in category {cat}:
@@ -158,3 +179,10 @@ for cat in params['data']['cat_features']:
             F-Beta..............{f_beta_ts}
             """)
 
+# Put out to file
+metrics_df.reset_index()
+metrics_df.columns = ['category', 'group', 'split', 'precision', 'recall', 'f-beta']
+
+with open('slice_output.txt', 'w') as f:
+    f.write(metrics_df.to_string(index=False))
+    f.close()

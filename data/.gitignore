@@ -6,3 +6,5 @@
 /lb.joblib
 /ohe.joblib
 /census.csv
+/train_unencoded.csv
+/test_unencoded.csv

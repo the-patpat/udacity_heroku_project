@@ -73,6 +73,9 @@ stages:
   eval:
     cmd: python eval_model.py
     deps:
+    - path: data/lb.joblib
+      md5: 18fed9f60c32011087af333c4d535de7
+      size: 447
     - path: data/test_features.csv
       md5: 42b7d45ff8d3f335930381f3eae6c143
       size: 2864570
@@ -92,8 +95,8 @@ stages:
       md5: aca2d342412038c170581f4a644baced
       size: 2815808
     - path: eval_model.py
-      md5: 3dbbde3943febe84fef3598b45854174
-      size: 4622
+      md5: ea60c4d01a1c9781b93072a1543e54a0
+      size: 5243
     - path: model/lrc_census.joblib
       md5: a3510e05006356a75c5062122aeeaced
       size: 2975
@@ -101,3 +104,7 @@ stages:
       params.yaml:
         prepare.data_output: ./data
         train.model_output: ./model/lrc_census.joblib
+    outs:
+    - path: slice_output.txt
+      md5: cc17d7ff49c4b1de7ba34f652836b95c
+      size: 15784
