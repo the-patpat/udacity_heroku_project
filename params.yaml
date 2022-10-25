@@ -1,0 +1,16 @@
+data:
+  target_variable: "salary"
+  test_size: 0.20
+  cat_features:
+    - "workclass"
+    - "education"
+    - "marital-status"
+    - "occupation"
+    - "relationship"
+    - "race"
+    - "sex"
+    - "native-country"
+prepare:
+  input_data: ./data/census.csv
+  data_output: ./data
+random_state: 42

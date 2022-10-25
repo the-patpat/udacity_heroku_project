@@ -1,0 +1,27 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python process_data.py
+    deps:
+    - path: data/census.csv
+      md5: 12c208530a5680c15ae19b34152286dd
+      size: 3518606
+    - path: process_data.py
+      md5: ba7efca93696a6823390cb1044c46c4d
+      size: 3893
+    params:
+      params.yaml:
+        data.cat_features:
+        - workclass
+        - education
+        - marital-status
+        - occupation
+        - relationship
+        - race
+        - sex
+        - native-country
+        data.target_variable: salary
+        data.test_size: 0.2
+        prepare.data_output: ./data
+        prepare.input_data: ./data/census.csv
+        random_state: 42

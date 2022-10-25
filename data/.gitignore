@@ -1,2 +1,8 @@
 
 /census.csv
+/test_features.csv
+/test_targets.csv
+/train_features.csv
+/train_targets.csv
+/lb.joblib
+/ohe.joblib
