@@ -82,6 +82,9 @@ stages:
     - path: eval_model.py
       md5: ff086117869824b6dfd7adb0f5754b56
       size: 2199
+    - path: model/lrc_census.joblib
+      md5: a3510e05006356a75c5062122aeeaced
+      size: 2975
     params:
       params.yaml:
         prepare.data_output: ./data
