@@ -1,0 +1,110 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python process_data.py
+    deps:
+    - path: data/census.csv
+      md5: 12c208530a5680c15ae19b34152286dd
+      size: 3518606
+    - path: process_data.py
+      md5: a44592811f933a30c213ec6838012763
+      size: 4219
+    params:
+      params.yaml:
+        data.cat_features:
+        - workclass
+        - education
+        - marital-status
+        - occupation
+        - relationship
+        - race
+        - sex
+        - native-country
+        data.target_variable: salary
+        data.test_size: 0.2
+        prepare.data_output: ./data
+        prepare.input_data: ./data/census.csv
+        random_state: 42
+    outs:
+    - path: data/lb.joblib
+      md5: 18fed9f60c32011087af333c4d535de7
+      size: 447
+    - path: data/ohe.joblib
+      md5: 8b0c2ed8ce8201b704aa34b9d90c9f48
+      size: 4055
+    - path: data/test_features.csv
+      md5: 42b7d45ff8d3f335930381f3eae6c143
+      size: 2864570
+    - path: data/test_targets.csv
+      md5: c1b54cfd2c163bb8d1a145e489d5f190
+      size: 13028
+    - path: data/test_unencoded.csv
+      md5: 1f96bc1296a0f854834bc22747a52124
+      size: 702952
+    - path: data/train_features.csv
+      md5: 19d530e7408515b8905c3816cbdbaa4a
+      size: 11455417
+    - path: data/train_targets.csv
+      md5: 15b6dd9476c58c754c2604aa24b01b39
+      size: 52098
+    - path: data/train_unencoded.csv
+      md5: aca2d342412038c170581f4a644baced
+      size: 2815808
+  train:
+    cmd: python train_model.py
+    deps:
+    - path: data/train_features.csv
+      md5: 19d530e7408515b8905c3816cbdbaa4a
+      size: 11455417
+    - path: data/train_targets.csv
+      md5: 15b6dd9476c58c754c2604aa24b01b39
+      size: 52098
+    - path: train_model.py
+      md5: 0281e808b48fcb811cf63de6cc1b9b7a
+      size: 1794
+    params:
+      params.yaml:
+        prepare.data_output: ./data
+        train.model_output: ./model/lrc_census.joblib
+    outs:
+    - path: model/lrc_census.joblib
+      md5: a3510e05006356a75c5062122aeeaced
+      size: 2975
+  eval:
+    cmd: python eval_model.py
+    deps:
+    - path: data/lb.joblib
+      md5: 18fed9f60c32011087af333c4d535de7
+      size: 447
+    - path: data/test_features.csv
+      md5: 42b7d45ff8d3f335930381f3eae6c143
+      size: 2864570
+    - path: data/test_targets.csv
+      md5: c1b54cfd2c163bb8d1a145e489d5f190
+      size: 13028
+    - path: data/test_unencoded.csv
+      md5: 1f96bc1296a0f854834bc22747a52124
+      size: 702952
+    - path: data/train_features.csv
+      md5: 19d530e7408515b8905c3816cbdbaa4a
+      size: 11455417
+    - path: data/train_targets.csv
+      md5: 15b6dd9476c58c754c2604aa24b01b39
+      size: 52098
+    - path: data/train_unencoded.csv
+      md5: aca2d342412038c170581f4a644baced
+      size: 2815808
+    - path: eval_model.py
+      md5: ea60c4d01a1c9781b93072a1543e54a0
+      size: 5243
+    - path: model/lrc_census.joblib
+      md5: a3510e05006356a75c5062122aeeaced
+      size: 2975
+    params:
+      params.yaml:
+        prepare.data_output: ./data
+        train.model_output: ./model/lrc_census.joblib
+    outs:
+    - path: slice_output.txt
+      md5: cc17d7ff49c4b1de7ba34f652836b95c
+      size: 15784

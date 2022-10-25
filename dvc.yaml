@@ -1,0 +1,52 @@
+stages:
+  prepare:
+    cmd: python process_data.py
+    deps:
+    - data/census.csv
+    - process_data.py
+    params:
+    - data.target_variable
+    - data.test_size
+    - data.cat_features
+    - prepare.input_data
+    - prepare.data_output
+    - random_state
+    outs:
+    - data/train_features.csv
+    - data/train_targets.csv
+    - data/test_features.csv
+    - data/test_targets.csv
+    - data/lb.joblib
+    - data/ohe.joblib
+    - data/train_unencoded.csv
+    - data/test_unencoded.csv
+
+  train:
+    cmd: python train_model.py
+    deps:
+    - data/train_features.csv
+    - data/train_targets.csv
+    - train_model.py
+    params:
+    - prepare.data_output
+    - train.model_output
+    outs:
+    - model/lrc_census.joblib
+  
+  eval:
+    cmd: python eval_model.py
+    deps:
+    - data/train_features.csv
+    - data/train_targets.csv
+    - data/test_features.csv
+    - data/test_targets.csv
+    - model/lrc_census.joblib
+    - eval_model.py
+    - data/train_unencoded.csv
+    - data/test_unencoded.csv
+    - data/lb.joblib
+    params:
+    - prepare.data_output
+    - train.model_output
+    outs:
+    - slice_output.txt
