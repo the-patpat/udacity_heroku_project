@@ -25,6 +25,25 @@ stages:
         prepare.data_output: ./data
         prepare.input_data: ./data/census.csv
         random_state: 42
+    outs:
+    - path: data/lb.joblib
+      md5: 18fed9f60c32011087af333c4d535de7
+      size: 447
+    - path: data/ohe.joblib
+      md5: 8b0c2ed8ce8201b704aa34b9d90c9f48
+      size: 4055
+    - path: data/test_features.csv
+      md5: 42b7d45ff8d3f335930381f3eae6c143
+      size: 2864570
+    - path: data/test_targets.csv
+      md5: c1b54cfd2c163bb8d1a145e489d5f190
+      size: 13028
+    - path: data/train_features.csv
+      md5: 19d530e7408515b8905c3816cbdbaa4a
+      size: 11455417
+    - path: data/train_targets.csv
+      md5: 15b6dd9476c58c754c2604aa24b01b39
+      size: 52098
   train:
     cmd: python train_model.py
     deps:
@@ -35,8 +54,8 @@ stages:
       md5: 15b6dd9476c58c754c2604aa24b01b39
       size: 52098
     - path: train_model.py
-      md5: c3f894425b694d2e9b498a71bc9c69f3
-      size: 1795
+      md5: 0281e808b48fcb811cf63de6cc1b9b7a
+      size: 1794
     params:
       params.yaml:
         prepare.data_output: ./data
@@ -45,3 +64,25 @@ stages:
     - path: model/lrc_census.joblib
       md5: a3510e05006356a75c5062122aeeaced
       size: 2975
+  eval:
+    cmd: python eval_model.py
+    deps:
+    - path: data/test_features.csv
+      md5: 42b7d45ff8d3f335930381f3eae6c143
+      size: 2864570
+    - path: data/test_targets.csv
+      md5: c1b54cfd2c163bb8d1a145e489d5f190
+      size: 13028
+    - path: data/train_features.csv
+      md5: 19d530e7408515b8905c3816cbdbaa4a
+      size: 11455417
+    - path: data/train_targets.csv
+      md5: 15b6dd9476c58c754c2604aa24b01b39
+      size: 52098
+    - path: eval_model.py
+      md5: ff086117869824b6dfd7adb0f5754b56
+      size: 2199
+    params:
+      params.yaml:
+        prepare.data_output: ./data
+        train.model_output: ./model/lrc_census.joblib

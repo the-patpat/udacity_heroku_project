@@ -11,6 +11,13 @@ stages:
     - prepare.input_data
     - prepare.data_output
     - random_state
+    outs:
+    - data/train_features.csv
+    - data/train_targets.csv
+    - data/test_features.csv
+    - data/test_targets.csv
+    - data/lb.joblib
+    - data/ohe.joblib
 
   train:
     cmd: python train_model.py
@@ -23,3 +30,15 @@ stages:
     - train.model_output
     outs:
     - model/lrc_census.joblib
+  
+  eval:
+    cmd: python eval_model.py
+    deps:
+    - data/train_features.csv
+    - data/train_targets.csv
+    - data/test_features.csv
+    - data/test_targets.csv
+    - eval_model.py
+    params:
+    - prepare.data_output
+    - train.model_output
