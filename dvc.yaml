@@ -18,6 +18,8 @@ stages:
     - data/test_targets.csv
     - data/lb.joblib
     - data/ohe.joblib
+    - data/train_unencoded.csv
+    - data/test_unencoded.csv
 
   train:
     cmd: python train_model.py
@@ -38,7 +40,10 @@ stages:
     - data/train_targets.csv
     - data/test_features.csv
     - data/test_targets.csv
+    - model/lrc_census.joblib
     - eval_model.py
+    - data/train_unencoded.csv
+    - data/test_unencoded.csv
     params:
     - prepare.data_output
     - train.model_output

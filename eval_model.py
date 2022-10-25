@@ -59,6 +59,27 @@ y_test = pd.read_csv(
     )
 )
 
+#Load the pre-encoding dataframes 
+logging.info('Loading train unencoded data')
+train = pd.read_csv(
+    os.path.join(
+        params['prepare']['data_output'],
+        'train_unencoded.csv'
+    )
+)
+
+logging.info('loading test unencoded data')
+test = pd.read_csv(
+    os.path.join(
+        params['prepare']['data_output'],
+        'test_unencoded.csv'
+    )
+)
+
+#Check for integrity by checking that age entries are exactly the same
+assert (train.iloc[:, 0] == X_train.iloc[:, 0]).all(), "Row mismatch in training data"
+assert (test.iloc[:, 0] == X_test.iloc[:, 0]).all()
+
 # Get predictions for train split
 logging.info('Performing inference on train set')
 y_train_preds = inference(lrc, X_train)
@@ -86,3 +107,54 @@ logging.info(
     Recall..............{recall_test}
     F-Beta..............{fbeta_test}
     """)
+
+# Measure performance on data slices
+train['salary_pred'] = y_train_preds
+test['salary_pred'] = y_test_preds
+
+#Need to binarize label to enable comparison
+# <=50K == 0
+# >50K == 1
+num_classes = len(train['salary'].unique())
+for cl, val in enumerate(train['salary'].unique()):
+    train.loc[train['salary'] == val, 'salary'] = num_classes- 1 - cl
+assert (train['salary'] == y_train.iloc[:, 0]).all(), "Label mismatch"
+
+for cl, val in enumerate(test['salary'].unique()):
+    test.loc[test['salary'] == val, 'salary'] = cl
+assert (test['salary'] == y_test.iloc[:, 0]).all(), "Label mismatch"
+
+# Compute slice performance
+for cat in params['data']['cat_features']:
+    for value in train[cat].unique():
+        y_group_preds_tr = train[train[cat]==value]['salary_pred'].astype(int)
+        y_group_tgts_tr = train[train[cat]==value]['salary'].astype(int)
+        y_group_preds_ts = test[train[cat]==value]['salary_pred'].astype(int)
+        y_group_tgts_ts = test[train[cat]==value]['salary'].astype(int)
+        logging.info(y_group_preds_tr)
+        logging.info(y_group_tgts_tr)
+        p_tr, r_tr, f_beta_tr = compute_model_metrics(y_group_tgts_tr, y_group_preds_tr)
+        p_ts, r_ts, f_beta_ts = compute_model_metrics(y_group_tgts_ts, y_group_preds_ts)
+        print(
+            f"""
+            ---- Slice Analysis ----
+            For group {value} in category {cat}:
+            """)
+        logging.info(
+            f"""
+            Slice evaluation results for LRC
+            --------------------------
+
+            Train
+            -----
+            Precision...........{p_tr}
+            Recall..............{r_tr}
+            F-Beta..............{f_beta_tr}
+
+            Test
+            -----
+            Precision...........{p_ts}
+            Recall..............{r_ts}
+            F-Beta..............{f_beta_ts}
+            """)
+

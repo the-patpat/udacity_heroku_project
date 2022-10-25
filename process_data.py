@@ -38,6 +38,18 @@ if __name__ == '__main__':
         test_size=float(params['data']['test_size']),
         random_state=int(params['random_state'])
     )
+    
+    logging.info('Dumping un-encoded train and test frames')
+    train.to_csv(
+        os.path.join(params['prepare']['data_output'],
+        'train_unencoded.csv'),
+        index=False
+    )
+    test.to_csv(
+        os.path.join(params['prepare']['data_output'],
+        'test_unencoded.csv'),
+        index=False
+    )
 
     cat_features = params['data']['cat_features']
     logging.info("Categorical features are %s", str(cat_features))

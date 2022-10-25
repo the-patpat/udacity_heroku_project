@@ -7,8 +7,8 @@ stages:
       md5: 12c208530a5680c15ae19b34152286dd
       size: 3518606
     - path: process_data.py
-      md5: ba7efca93696a6823390cb1044c46c4d
-      size: 3893
+      md5: a44592811f933a30c213ec6838012763
+      size: 4219
     params:
       params.yaml:
         data.cat_features:
@@ -38,12 +38,18 @@ stages:
     - path: data/test_targets.csv
       md5: c1b54cfd2c163bb8d1a145e489d5f190
       size: 13028
+    - path: data/test_unencoded.csv
+      md5: 1f96bc1296a0f854834bc22747a52124
+      size: 702952
     - path: data/train_features.csv
       md5: 19d530e7408515b8905c3816cbdbaa4a
       size: 11455417
     - path: data/train_targets.csv
       md5: 15b6dd9476c58c754c2604aa24b01b39
       size: 52098
+    - path: data/train_unencoded.csv
+      md5: aca2d342412038c170581f4a644baced
+      size: 2815808
   train:
     cmd: python train_model.py
     deps:
@@ -73,15 +79,21 @@ stages:
     - path: data/test_targets.csv
       md5: c1b54cfd2c163bb8d1a145e489d5f190
       size: 13028
+    - path: data/test_unencoded.csv
+      md5: 1f96bc1296a0f854834bc22747a52124
+      size: 702952
     - path: data/train_features.csv
       md5: 19d530e7408515b8905c3816cbdbaa4a
       size: 11455417
     - path: data/train_targets.csv
       md5: 15b6dd9476c58c754c2604aa24b01b39
       size: 52098
+    - path: data/train_unencoded.csv
+      md5: aca2d342412038c170581f4a644baced
+      size: 2815808
     - path: eval_model.py
-      md5: ff086117869824b6dfd7adb0f5754b56
-      size: 2199
+      md5: 3dbbde3943febe84fef3598b45854174
+      size: 4622
     - path: model/lrc_census.joblib
       md5: a3510e05006356a75c5062122aeeaced
       size: 2975
