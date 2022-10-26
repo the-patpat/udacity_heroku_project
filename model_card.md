@@ -28,7 +28,7 @@ Note that as a pre-processing step, the following steps were carried out:
 - The `process_data` function in `ml/data.py` pre-processes the data by
 one-hot-encoding the categorical features (to be found under `params.yaml`) and making a binary `0/1` label of the `salary` column, which is the target variable.
 ## Metrics
-![Evaluation metrics for the logistic regression classifier](screenshots/train_test_metric_lrc.png | width=100)
+![Evaluation metrics for the logistic regression classifier](screenshots/train_test_metric_lrc.png)
 
 ## Ethical Considerations
 This model has not been properly checked for model bias against certain population groups. Note that the model might have bias for certain features, such as:
