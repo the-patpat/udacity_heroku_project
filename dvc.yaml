@@ -50,3 +50,15 @@ stages:
     - train.model_output
     outs:
     - slice_output.txt
+
+  pytest:
+    cmd: pytest -vv
+    deps:
+    - params.yaml
+    - data/train_unencoded.csv
+    - data/test_unencoded.csv
+    - data/test_features.csv
+    - data/test_targets.csv
+    - model/lrc_census.joblib
+    - data/ohe.joblib
+    - data/lb.joblib

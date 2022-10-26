@@ -108,3 +108,30 @@ stages:
     - path: slice_output.txt
       md5: cc17d7ff49c4b1de7ba34f652836b95c
       size: 15784
+  pytest:
+    cmd: pytest -vv
+    deps:
+    - path: data/lb.joblib
+      md5: 18fed9f60c32011087af333c4d535de7
+      size: 447
+    - path: data/ohe.joblib
+      md5: 8b0c2ed8ce8201b704aa34b9d90c9f48
+      size: 4055
+    - path: data/test_features.csv
+      md5: 42b7d45ff8d3f335930381f3eae6c143
+      size: 2864570
+    - path: data/test_targets.csv
+      md5: c1b54cfd2c163bb8d1a145e489d5f190
+      size: 13028
+    - path: data/test_unencoded.csv
+      md5: 1f96bc1296a0f854834bc22747a52124
+      size: 702952
+    - path: data/train_unencoded.csv
+      md5: aca2d342412038c170581f4a644baced
+      size: 2815808
+    - path: model/lrc_census.joblib
+      md5: a3510e05006356a75c5062122aeeaced
+      size: 2975
+    - path: params.yaml
+      md5: 1107f0d84efe01f97a17d289b0ff8b60
+      size: 343
