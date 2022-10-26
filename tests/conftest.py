@@ -7,6 +7,8 @@ import sys
 import joblib
 import pandas as pd
 import yaml
+from yaml.loader import SafeLoader
+import pytest
 
 @pytest.fixture(scope='session')
 def params():
@@ -23,7 +25,21 @@ def split_data():
     test = pd.read_csv('data/test_unencoded.csv')
     return train, test
 
+@pytest.fixture(scope='session')
+def encoded_test_data():
+    return (
+        pd.read_csv('data/test_features.csv'),
+        pd.read_csv('data/test_targets.csv')
+    )
 
 @pytest.fixture(scope='session')
 def model():
     return joblib.load('model/lrc_census.joblib')
+
+@pytest.fixture(scope='session')
+def encoder():
+    return joblib.load('data/ohe.joblib')
+
+@pytest.fixture(scope='session')
+def lb():
+    return joblib.load('data/lb.joblib')
