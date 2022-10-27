@@ -111,6 +111,7 @@ class Batch(BaseModel):
                 "native-country": "United-States"
             }]}
         }
+        allow_population_by_field_name = True
 
 class InferenceResult(BaseModel):
     input: CensusData
@@ -185,8 +186,11 @@ async def do_inference(samples: Batch) -> BatchResult:
     """
     # Important to use the by_alias variable,
     # otherwise the hyphens are not used
-    batch_df = pd.DataFrame(samples.dict(by_alias=True)['samples'], index=[0])
-    logging.debug('DataFrame head looks like this: %s', str(batch_df.head())) 
+    batch_df = pd.DataFrame(
+        samples.dict(by_alias=True)['samples'],
+        index=list(range(len(samples.samples)))
+    )
+    logging.debug('DataFrame head looks like this: %s', str(batch_df.head()))
 
     # Pre-processing
     logging.debug('Processing data')
