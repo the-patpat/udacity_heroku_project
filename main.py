@@ -16,39 +16,8 @@ import pandas as pd
 from ml.model import inference
 from ml.data import process_data
 
-# Set up logging
-# Copied and adjusted from
-# https://stackoverflow.com/questions/13733552/logger-configuration-to-log-to-file-and-print-to-stdout
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[
-        logging.FileHandler("logs/rest_api.log"),
-        logging.StreamHandler()
-    ]
-)
-
 app = fastapi.FastAPI()
 params = dvc.api.params_show()
-
-logging.info('Loading LabelBinarizer')
-lb = joblib.load(
-    os.path.join(
-        params['prepare']['data_output'],
-        'lb.joblib'
-    )
-)
-
-logging.info('Loading one-hot-encoder')
-ohe = joblib.load(
-    os.path.join(
-        params['prepare']['data_output'],
-        'ohe.joblib'
-    )
-)
-
-logging.info('Loading Linear Regression Classifier')
-model = joblib.load(params['train']['model_output'])
 class CensusData(BaseModel):
     """
     The data model for the ingestion body
@@ -162,6 +131,38 @@ class BatchResult(BaseModel):
                 }
             ]
         }
+
+# Set up logging
+# Copied and adjusted from
+# https://stackoverflow.com/questions/13733552/logger-configuration-to-log-to-file-and-print-to-stdout
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler("logs/rest_api.log"),
+        logging.StreamHandler()
+    ]
+)
+
+
+logging.info('Loading LabelBinarizer')
+lb = joblib.load(
+    os.path.join(
+        params['prepare']['data_output'],
+        'lb.joblib'
+    )
+)
+
+logging.info('Loading one-hot-encoder')
+ohe = joblib.load(
+    os.path.join(
+        params['prepare']['data_output'],
+        'ohe.joblib'
+    )
+)
+
+logging.info('Loading Linear Regression Classifier')
+model = joblib.load(params['train']['model_output'])
 
 @app.get("/", response_class=HTMLResponse)
 async def greet_user():
