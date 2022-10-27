@@ -30,10 +30,13 @@ logging.basicConfig(
 
 # Need to pull data if we're on heroku
 # DVC can only be imported after this section
+logging.info("Setting up dvc from process %d", os.getpid())
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
-    os.system("dvc config core.no_scm true")
+    rval = os.system("dvc config core.no_scm true")
+    logging.info("dvc config core.no_scm true returned %d from process %d", rval, os.getpid())
     os.system("dvc config core.hardlink_lock true")
     os.system("dvc pull -r driveremote")
+    logging.info("dvc pull -r driveremote returned %d from process %d", rval, os.getpid())
 
 import dvc.api
 app = fastapi.FastAPI()
