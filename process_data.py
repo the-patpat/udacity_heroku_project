@@ -39,23 +39,23 @@ if __name__ == '__main__':
         test_size=float(params['data']['test_size']),
         random_state=int(params['random_state'])
     )
-    
+
     logging.info('Dumping un-encoded train and test frames')
     train.to_csv(
         os.path.join(params['prepare']['data_output'],
-        'train_unencoded.csv'),
+                     'train_unencoded.csv'),
         index=False
     )
     test.to_csv(
         os.path.join(params['prepare']['data_output'],
-        'test_unencoded.csv'),
+                     'test_unencoded.csv'),
         index=False
     )
 
     cat_features = params['data']['cat_features']
     logging.info("Categorical features are %s", str(cat_features))
     # Default target was salary
-    
+
     logging.info('Processing training data')
     X_train, y_train, encoder, lb = process_data(
         train, categorical_features=cat_features,
@@ -80,7 +80,7 @@ if __name__ == '__main__':
         'Dumped one-hot-encoder at %s',
         os.path.abspath(
             os.path.join(params['prepare']['data_output'], 'ohe.joblib')
-            )
+        )
     )
 
     joblib.dump(
@@ -91,7 +91,7 @@ if __name__ == '__main__':
         'Dumped linear binarizer at %s',
         os.path.abspath(
             os.path.join(params['prepare']['data_output'], 'jb.joblib')
-            )
+        )
     )
     # Dump the training data
     X_train_df = pd.DataFrame(X_train)
@@ -103,9 +103,9 @@ if __name__ == '__main__':
     logging.info(
         'Dumped train features at %s',
         os.path.abspath(
-            os.path.join(params['prepare']['data_output'], 'train_features.csv')
-            )
-    )
+            os.path.join(
+                params['prepare']['data_output'],
+                'train_features.csv')))
 
     y_train_df = pd.DataFrame(y_train)
     y_train_df.to_csv(
@@ -117,7 +117,7 @@ if __name__ == '__main__':
         'Dumped train targets at %s',
         os.path.abspath(
             os.path.join(params['prepare']['data_output'], 'train_targets.csv')
-            )
+        )
     )
 
     # Dump the test data
@@ -131,7 +131,7 @@ if __name__ == '__main__':
         'Dumped test features at %s',
         os.path.abspath(
             os.path.join(params['prepare']['data_output'], 'test_features.csv')
-            )
+        )
     )
     y_test_df = pd.DataFrame(y_test)
     y_test_df.to_csv(
@@ -143,5 +143,5 @@ if __name__ == '__main__':
         'Dumped test targets at %s',
         os.path.abspath(
             os.path.join(params['prepare']['data_output'], 'test_targets.csv')
-            )
+        )
     )

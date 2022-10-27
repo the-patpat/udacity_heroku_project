@@ -10,7 +10,7 @@ import os
 import logging
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
-from typing import List 
+from typing import List
 import pandas as pd
 from ml.model import inference
 from ml.data import process_data
@@ -39,20 +39,21 @@ import dvc.api
 app = fastapi.FastAPI()
 params = dvc.api.params_show()
 
+
 class CensusData(BaseModel):
     """
     The data model for the ingestion body
 
-    Note that fastapi converts the underscore in these names automatically to 
+    Note that fastapi converts the underscore in these names automatically to
     hyphens
     """
-    age: int 
+    age: int
     workclass: str
     fnlgt: int
     education: str
     education_num: int = Field(None, alias='education-num')
     marital_status: str = Field(None, alias='marital-status')
-    occupation: str 
+    occupation: str
     relationship: str
     race: str
     sex: str
@@ -60,10 +61,11 @@ class CensusData(BaseModel):
     capital_loss: int = Field(None, alias='capital-loss')
     hours_per_week: int = Field(None, alias='hours-per-week')
     native_country: str = Field(None, alias='native-country')
+
     class Config:
         schema_extra = {
             "example": {
-                "age" : 39,
+                "age": 39,
                 "workclass": "State-gov",
                 "fnlgt": 77516,
                 "education": "Bachelors",
@@ -80,12 +82,15 @@ class CensusData(BaseModel):
             }
         }
         allow_population_by_field_name = True
+
+
 class Batch(BaseModel):
     samples: List[CensusData]
+
     class Config:
         schema_extra = {
-                "example": {"samples": [{
-                "age" : 39,
+            "example": {"samples": [{
+                "age": 39,
                 "workclass": "State-gov",
                 "fnlgt": 77516,
                 "education": "Bachelors",
@@ -103,11 +108,13 @@ class Batch(BaseModel):
         }
         allow_population_by_field_name = True
 
+
 class InferenceResult(BaseModel):
     input: CensusData
     pred_salary_class: str
+
     class Config:
-        schema_extra={
+        schema_extra = {
             "input": {
                 "age": 39,
                 "workclass": "State-gov",
@@ -126,10 +133,13 @@ class InferenceResult(BaseModel):
             },
             "pred_salary_class": "<=50K"
         }
+
+
 class BatchResult(BaseModel):
     results: List[InferenceResult]
+
     class Config:
-        schema_extra={
+        schema_extra = {
             "results": [
                 {
                     "input": {
@@ -153,6 +163,7 @@ class BatchResult(BaseModel):
             ]
         }
 
+
 logging.info('Loading LabelBinarizer')
 lb = joblib.load(
     os.path.join(
@@ -172,6 +183,7 @@ ohe = joblib.load(
 logging.info('Loading Linear Regression Classifier')
 model = joblib.load(params['train']['model_output'])
 
+
 @app.get("/", response_class=HTMLResponse)
 async def greet_user():
     return """
@@ -180,13 +192,14 @@ async def greet_user():
             Hello dear user! Welcome to the model inference API.<br>
 
             Short explanation on the usage:<br>
-            
+
             GET / will give you this message.<br>
 
             POST /inference will run inference
         </body>
     </html>
     """
+
 
 @app.post("/inference/")
 async def do_inference(samples: Batch) -> BatchResult:

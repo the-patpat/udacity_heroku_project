@@ -3,7 +3,8 @@ Some basic utilities
 """
 import os
 import errno
-import logging 
+import logging
+
 
 def mkdir_p(path):
     """https://stackoverflow.com/questions/20666764/python-logging-how-to-ensure-logfile-directory-is-created"""
@@ -13,13 +14,16 @@ def mkdir_p(path):
     except TypeError:
         try:
             os.makedirs(path)
-        except OSError as exc: # Python >2.5
+        except OSError as exc:  # Python >2.5
             if exc.errno == errno.EEXIST and os.path.isdir(path):
                 pass
-            else: raise
+            else:
+                raise
+
 
 class MakeFileHandler(logging.FileHandler):
     """https://stackoverflow.com/questions/20666764/python-logging-how-to-ensure-logfile-directory-is-created"""
+
     def __init__(self, filename, mode='a', encoding=None, delay=0):
         mkdir_p(os.path.dirname(filename))
         logging.FileHandler.__init__(self, filename, mode, encoding, delay)

@@ -28,7 +28,7 @@ logging.basicConfig(
 )
 if __name__ == '__main__':
 
-    #Argument parsing
+    # Argument parsing
     params = dvc.api.params_show()
 
     # Load the train data
@@ -59,7 +59,7 @@ if __name__ == '__main__':
             'train_targets.csv'
         )
     )
-     # Train and save a model.
+    # Train and save a model.
     logging.info('Fitting model')
     model = train_model(X_train, y_train)
     logging.info(
