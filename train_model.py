@@ -4,14 +4,11 @@ Author: Patrick
 Date: Oct 2022
 """
 
-import joblib
 import logging
 import os
+import joblib
 import pandas as pd
-import numpy as np
-from sklearn.model_selection import train_test_split
 import dvc.api
-from ml.data import process_data
 from ml.model import train_model
 from utils import MakeFileHandler
 

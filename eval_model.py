@@ -4,9 +4,9 @@ Author: Patrick
 Date: Oct 2022
 """
 
-import joblib
 import os
 import logging
+import joblib
 import dvc.api
 import pandas as pd
 from ml.model import inference, compute_model_metrics

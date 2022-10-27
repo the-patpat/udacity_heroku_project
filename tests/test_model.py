@@ -1,8 +1,11 @@
-import pytest
-import joblib
+"""
+Tests for the model module
+
+Author: Patrick
+Date: Oct 2022
+"""
 import sys
 sys.path.insert(0, './')
-from ml.data import process_data
 from ml.model import inference, compute_model_metrics
 
 

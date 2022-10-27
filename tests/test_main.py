@@ -1,9 +1,7 @@
 """
 Test script to test the REST api in main.py
 """
-import pytest
 import sys
-import json
 from fastapi.testclient import TestClient
 import pandas as pd
 

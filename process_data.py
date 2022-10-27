@@ -1,10 +1,16 @@
+"""
+This script preprocesses the data and outputs data ready for training and
+testing
+
+Author: Patrick
+Date: Oct 2022
+"""
 import os
-import argparse
+import logging
 import pandas as pd
 import joblib
 from sklearn.model_selection import train_test_split
 import dvc.api
-import logging
 from ml.data import process_data
 from utils import MakeFileHandler
 

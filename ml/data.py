@@ -1,3 +1,9 @@
+"""
+Module for data processing
+
+Author: ?
+Date: ?
+"""
 import numpy as np
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
