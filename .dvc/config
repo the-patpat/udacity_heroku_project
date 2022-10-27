@@ -3,3 +3,5 @@
     autostage = true
 ['remote "localremote"']
     url = ../../localdvcrepo
+['remote "driveremote"']
+    url = gdrive://1wZwTLA95tgRp82bhgUtM6uwe1v3AngGW
