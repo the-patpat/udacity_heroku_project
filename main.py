@@ -16,6 +16,17 @@ from ml.model import inference
 from ml.data import process_data
 from utils import MakeFileHandler
 
+# Set up logging
+# Copied and adjusted from
+# https://stackoverflow.com/questions/13733552/logger-configuration-to-log-to-file-and-print-to-stdout
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        MakeFileHandler("logs/rest_api.log", ),
+        logging.StreamHandler()
+    ]
+)
 
 # Need to pull data if we're on heroku
 # DVC can only be imported after this section
@@ -145,18 +156,6 @@ class BatchResult(BaseModel):
                 }
             ]
         }
-
-# Set up logging
-# Copied and adjusted from
-# https://stackoverflow.com/questions/13733552/logger-configuration-to-log-to-file-and-print-to-stdout
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[
-        MakeFileHandler("logs/rest_api.log", ),
-        logging.StreamHandler()
-    ]
-)
 
 logging.info('Loading LabelBinarizer')
 lb = joblib.load(
