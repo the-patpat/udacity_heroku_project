@@ -4,13 +4,13 @@ This module implements the REST API for the model using FastAPI
 Author: Patrick
 Date: Oct 2022
 """
-import fastapi
-import joblib
 import os
 import logging
+from typing import List
+import fastapi
+import joblib
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
-from typing import List
 import pandas as pd
 from ml.model import inference
 from ml.data import process_data
@@ -186,6 +186,9 @@ model = joblib.load(params['train']['model_output'])
 
 @app.get("/", response_class=HTMLResponse)
 async def greet_user():
+    """
+    Returns a welcome message
+    """
     return """
     <html>
         <body>
