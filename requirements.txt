@@ -5,6 +5,7 @@ pytest
 requests
 pyyaml
 dvc
+dvc-gdrive
 fastapi==0.63.0
 uvicorn
 gunicorn
