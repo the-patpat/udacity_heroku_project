@@ -4,11 +4,11 @@ Author: Patrick
 Date: Oct 2022
 """
 
-#%% Imports
+# %% Imports
 import requests
 from main import Batch
 
-#%%
+# %%
 response = requests.post(
     'https://udacity-inference-test.herokuapp.com/inference/',
     json=Batch.Config.schema_extra['example'])

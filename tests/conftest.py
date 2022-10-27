@@ -10,6 +10,7 @@ import yaml
 from yaml.loader import SafeLoader
 import pytest
 
+
 @pytest.fixture(scope='session')
 def params():
     """Returns the dvc parameters"""
@@ -18,12 +19,14 @@ def params():
         par = yaml.load(yaml_file, Loader=SafeLoader)
     return par
 
+
 @pytest.fixture(scope='session')
 def split_data():
     """Returns the training data"""
     train = pd.read_csv('data/train_unencoded.csv')
     test = pd.read_csv('data/test_unencoded.csv')
     return train, test
+
 
 @pytest.fixture(scope='session')
 def encoded_test_data():
@@ -32,13 +35,16 @@ def encoded_test_data():
         pd.read_csv('data/test_targets.csv')
     )
 
+
 @pytest.fixture(scope='session')
 def model():
     return joblib.load('model/lrc_census.joblib')
 
+
 @pytest.fixture(scope='session')
 def encoder():
     return joblib.load('data/ohe.joblib')
+
 
 @pytest.fixture(scope='session')
 def lb():

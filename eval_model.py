@@ -4,9 +4,9 @@ Author: Patrick
 Date: Oct 2022
 """
 
-import joblib
 import os
 import logging
+import joblib
 import dvc.api
 import pandas as pd
 from ml.model import inference, compute_model_metrics
@@ -23,14 +23,17 @@ logging.basicConfig(
         logging.StreamHandler()
     ]
 )
-#Get parameters
+# Get parameters
 params = dvc.api.params_show()
 
-#Load the model from disk
-logging.info('Loading model from %s', os.path.abspath(params['train']['model_output']))
+# Load the model from disk
+logging.info(
+    'Loading model from %s',
+    os.path.abspath(
+        params['train']['model_output']))
 lrc = joblib.load(params['train']['model_output'])
 
-#Load the train data from disk
+# Load the train data from disk
 logging.info('Loading train data')
 X_train = pd.read_csv(
     os.path.join(
@@ -60,7 +63,7 @@ y_test = pd.read_csv(
     )
 )
 
-#Load the pre-encoding dataframes 
+# Load the pre-encoding dataframes
 logging.info('Loading train unencoded data')
 train = pd.read_csv(
     os.path.join(
@@ -77,19 +80,22 @@ test = pd.read_csv(
     )
 )
 
-#Check for integrity by checking that age entries are exactly the same
-assert (train.iloc[:, 0] == X_train.iloc[:, 0]).all(), "Row mismatch in training data"
+# Check for integrity by checking that age entries are exactly the same
+assert (train.iloc[:, 0] == X_train.iloc[:, 0]
+        ).all(), "Row mismatch in training data"
 assert (test.iloc[:, 0] == X_test.iloc[:, 0]).all()
 
 # Get predictions for train split
 logging.info('Performing inference on train set')
 y_train_preds = inference(lrc, X_train)
 logging.info('Calculating train metrics')
-precision_train, recall_train, fbeta_train = compute_model_metrics(y_train, y_train_preds)
+precision_train, recall_train, fbeta_train = compute_model_metrics(
+    y_train, y_train_preds)
 
 logging.info('Performing inference on test set')
 y_test_preds = inference(lrc, X_test)
-precision_test, recall_test, fbeta_test = compute_model_metrics(y_test, y_test_preds)
+precision_test, recall_test, fbeta_test = compute_model_metrics(
+    y_test, y_test_preds)
 
 logging.info(
     f"""
@@ -113,7 +119,7 @@ logging.info(
 train['salary_pred'] = y_train_preds
 test['salary_pred'] = y_test_preds
 
-#Load label binarizer
+# Load label binarizer
 lb = joblib.load(
     os.path.join(
         params['prepare']['data_output'],
@@ -121,7 +127,7 @@ lb = joblib.load(
     )
 )
 
-#Binarize targets for comparison. Could also be done by loading the files
+# Binarize targets for comparison. Could also be done by loading the files
 train['salary'] = lb.transform(train['salary'])
 test['salary'] = lb.transform(test['salary'])
 
@@ -133,30 +139,32 @@ assert (test['salary'] == y_test.iloc[:, 0]).all(), "Label mismatch"
 metrics_df = pd.DataFrame()
 for cat in params['data']['cat_features']:
     for value in train[cat].unique():
-        
-        #Get the group slices
-        #Use astype int to have the correct type
-        y_group_preds_tr = train[train[cat]==value]['salary_pred'].astype(int)
-        y_group_tgts_tr = train[train[cat]==value]['salary'].astype(int)
-        y_group_preds_ts = test[train[cat]==value]['salary_pred'].astype(int)
-        y_group_tgts_ts = test[train[cat]==value]['salary'].astype(int)
 
-        #Compute the metrics
-        p_tr, r_tr, f_beta_tr = compute_model_metrics(y_group_tgts_tr, y_group_preds_tr)
-        p_ts, r_ts, f_beta_ts = compute_model_metrics(y_group_tgts_ts, y_group_preds_ts)
+        # Get the group slices
+        # Use astype int to have the correct type
+        y_group_preds_tr = train[train[cat] ==
+                                 value]['salary_pred'].astype(int)
+        y_group_tgts_tr = train[train[cat] == value]['salary'].astype(int)
+        y_group_preds_ts = test[train[cat] == value]['salary_pred'].astype(int)
+        y_group_tgts_ts = test[train[cat] == value]['salary'].astype(int)
+
+        # Compute the metrics
+        p_tr, r_tr, f_beta_tr = compute_model_metrics(
+            y_group_tgts_tr, y_group_preds_tr)
+        p_ts, r_ts, f_beta_ts = compute_model_metrics(
+            y_group_tgts_ts, y_group_preds_ts)
 
         metrics_df = pd.concat(
             [metrics_df,
-            pd.DataFrame(
-                [
-                    [cat, value, 'train', p_tr, r_tr, f_beta_tr],
-                    [cat, value, 'test', p_ts, r_ts, f_beta_ts]
-                ]
-            )]
+             pd.DataFrame(
+                 [
+                     [cat, value, 'train', p_tr, r_tr, f_beta_tr],
+                     [cat, value, 'test', p_ts, r_ts, f_beta_ts]
+                 ]
+             )]
         )
 
-        
-        #Log the metrics
+        # Log the metrics
         logging.info(
             f"""
             ---- Slice Analysis ----
@@ -182,7 +190,13 @@ for cat in params['data']['cat_features']:
 
 # Put out to file
 metrics_df.reset_index()
-metrics_df.columns = ['category', 'group', 'split', 'precision', 'recall', 'f-beta']
+metrics_df.columns = [
+    'category',
+    'group',
+    'split',
+    'precision',
+    'recall',
+    'f-beta']
 
 with open('slice_output.txt', 'w') as f:
     f.write(metrics_df.to_string(index=False))
