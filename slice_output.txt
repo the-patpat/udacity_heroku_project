@@ -1,0 +1,205 @@
+      category                      group split  precision   recall   f-beta
+     workclass                  Local-gov train   0.691860 0.234714 0.350515
+     workclass                  Local-gov  test   0.780488 0.288288 0.421053
+     workclass                    Private train   0.698669 0.251641 0.370013
+     workclass                    Private  test   0.732057 0.273948 0.398697
+     workclass           Self-emp-not-inc train   0.727273 0.268078 0.391753
+     workclass           Self-emp-not-inc  test   0.764706 0.240741 0.366197
+     workclass                          ? train   0.558442 0.288591 0.380531
+     workclass                          ?  test   0.655172 0.279412 0.391753
+     workclass                Federal-gov train   0.722222 0.215947 0.332481
+     workclass                Federal-gov  test   0.615385 0.200000 0.301887
+     workclass               Self-emp-inc train   0.914573 0.361111 0.517781
+     workclass               Self-emp-inc  test   0.750000 0.321429 0.450000
+     workclass                  State-gov train   0.755814 0.232143 0.355191
+     workclass                  State-gov  test   0.666667 0.200000 0.307692
+     workclass                Without-pay train   1.000000 1.000000 1.000000
+     workclass                Without-pay  test   1.000000 1.000000 1.000000
+     workclass               Never-worked train   1.000000 1.000000 1.000000
+     workclass               Never-worked  test   0.000000 1.000000 0.000000
+     education                  Bachelors train   0.832479 0.274986 0.413413
+     education                  Bachelors  test   0.703704 0.225296 0.341317
+     education                  Assoc-voc train   0.696970 0.231544 0.347607
+     education                  Assoc-voc  test   0.794118 0.409091 0.540000
+     education                        9th train   0.250000 0.083333 0.125000
+     education                        9th  test   0.666667 0.190476 0.296296
+     education               Some-college train   0.618182 0.214414 0.318395
+     education               Some-college  test   0.685484 0.259939 0.376940
+     education                       10th train   0.384615 0.200000 0.263158
+     education                       10th  test   0.727273 0.340426 0.463768
+     education                    HS-grad train   0.552475 0.209774 0.304087
+     education                    HS-grad  test   0.772277 0.290503 0.422192
+     education                Prof-school train   0.965986 0.418879 0.584362
+     education                Prof-school  test   0.500000 0.142857 0.222222
+     education                 Assoc-acdm train   0.679487 0.243119 0.358108
+     education                 Assoc-acdm  test   0.592593 0.313725 0.410256
+     education                       11th train   0.500000 0.346939 0.409639
+     education                       11th  test   0.695652 0.301887 0.421053
+     education                       12th train   0.600000 0.214286 0.315789
+     education                       12th  test   1.000000 0.350000 0.518519
+     education                    Masters train   0.878229 0.316489 0.465298
+     education                    Masters  test   0.729730 0.296703 0.421875
+     education                    7th-8th train   0.315789 0.176471 0.226415
+     education                    7th-8th  test   0.888889 0.210526 0.340426
+     education                  Doctorate train   0.948052 0.293173 0.447853
+     education                  Doctorate  test   1.000000 0.000000 0.000000
+     education                    5th-6th train   0.181818 0.166667 0.173913
+     education                    5th-6th  test   0.500000 0.058824 0.105263
+     education                    1st-4th train   0.333333 0.166667 0.222222
+     education                    1st-4th  test   0.500000 0.166667 0.250000
+     education                  Preschool train   0.000000 1.000000 0.000000
+     education                  Preschool  test   1.000000 0.000000 0.000000
+marital-status              Never-married train   0.402299 0.360825 0.380435
+marital-status              Never-married  test   0.728643 0.275142 0.399449
+marital-status         Married-civ-spouse train   0.817118 0.246838 0.379143
+marital-status         Married-civ-spouse  test   0.743902 0.253112 0.377709
+marital-status                  Separated train   0.451613 0.297872 0.358974
+marital-status                  Separated  test   0.523810 0.215686 0.305556
+marital-status                   Divorced train   0.550505 0.302778 0.390681
+marital-status                   Divorced  test   0.739583 0.330233 0.456592
+marital-status                    Widowed train   0.543478 0.378788 0.446429
+marital-status                    Widowed  test   0.692308 0.219512 0.333333
+marital-status      Married-spouse-absent train   0.583333 0.269231 0.368421
+marital-status      Married-spouse-absent  test   0.666667 0.307692 0.421053
+marital-status          Married-AF-spouse train   1.000000 0.142857 0.250000
+marital-status          Married-AF-spouse  test   1.000000 1.000000 1.000000
+    occupation             Prof-specialty train   0.834275 0.301977 0.443443
+    occupation             Prof-specialty  test   0.720588 0.252577 0.374046
+    occupation            Exec-managerial train   0.903475 0.297899 0.448061
+    occupation            Exec-managerial  test   0.787879 0.278075 0.411067
+    occupation               Craft-repair train   0.586614 0.199198 0.297405
+    occupation               Craft-repair  test   0.763889 0.273632 0.402930
+    occupation            Farming-fishing train   0.518519 0.321839 0.397163
+    occupation            Farming-fishing  test   0.800000 0.333333 0.470588
+    occupation              Other-service train   0.300000 0.189189 0.232044
+    occupation              Other-service  test   0.758065 0.279762 0.408696
+    occupation          Machine-op-inspct train   0.467532 0.177340 0.257143
+    occupation          Machine-op-inspct  test   0.685714 0.233010 0.347826
+    occupation                      Sales train   0.755725 0.250316 0.376068
+    occupation                      Sales  test   0.686567 0.275449 0.393162
+    occupation          Handlers-cleaners train   0.390244 0.216216 0.278261
+    occupation          Handlers-cleaners  test   0.807692 0.323077 0.461538
+    occupation           Transport-moving train   0.590361 0.191406 0.289086
+    occupation           Transport-moving  test   0.810811 0.329670 0.468750
+    occupation            Protective-serv train   0.756098 0.183432 0.295238
+    occupation            Protective-serv  test   0.800000 0.333333 0.470588
+    occupation                          ? train   0.558442 0.288591 0.380531
+    occupation                          ?  test   0.633333 0.279412 0.387755
+    occupation               Adm-clerical train   0.510638 0.233577 0.320534
+    occupation               Adm-clerical  test   0.619048 0.203125 0.305882
+    occupation            Priv-house-serv train   0.500000 1.000000 0.666667
+    occupation            Priv-house-serv  test   1.000000 0.181818 0.307692
+    occupation               Tech-support train   0.709677 0.189655 0.299320
+    occupation               Tech-support  test   0.631579 0.300000 0.406780
+    occupation               Armed-Forces train   1.000000 1.000000 1.000000
+    occupation               Armed-Forces  test   1.000000 1.000000 1.000000
+  relationship              Not-in-family train   0.528986 0.327844 0.404806
+  relationship              Not-in-family  test   0.700000 0.290954 0.411054
+  relationship                    Husband train   0.826241 0.245366 0.378370
+  relationship                    Husband  test   0.755556 0.272000 0.400000
+  relationship             Other-relative train   0.333333 0.275862 0.301887
+  relationship             Other-relative  test   0.916667 0.211538 0.343750
+  relationship                  Unmarried train   0.532710 0.329480 0.407143
+  relationship                  Unmarried  test   0.705882 0.313725 0.434389
+  relationship                  Own-child train   0.188679 0.400000 0.256410
+  relationship                  Own-child  test   0.732558 0.259259 0.382979
+  relationship                       Wife train   0.773869 0.255814 0.384519
+  relationship                       Wife  test   0.619048 0.146067 0.236364
+          race                      White train   0.729301 0.258569 0.381780
+          race                      White  test   0.732143 0.272325 0.396988
+          race                      Black train   0.615942 0.263975 0.369565
+          race                      Black  test   0.725490 0.264286 0.387435
+          race         Asian-Pac-Islander train   0.703704 0.266355 0.386441
+          race         Asian-Pac-Islander  test   0.666667 0.255319 0.369231
+          race         Amer-Indian-Eskimo train   0.428571 0.230769 0.300000
+          race         Amer-Indian-Eskimo  test   0.800000 0.250000 0.380952
+          race                      Other train   0.400000 0.210526 0.275862
+          race                      Other  test   0.500000 0.153846 0.235294
+           sex                     Female train   0.546693 0.297040 0.384932
+           sex                     Female  test   0.705882 0.266667 0.387097
+           sex                       Male train   0.768614 0.252066 0.379632
+           sex                       Male  test   0.740741 0.271581 0.397445
+native-country              United-States train   0.718615 0.260460 0.382342
+native-country              United-States  test   0.732448 0.273371 0.398143
+native-country                          ? train   0.761905 0.278261 0.407643
+native-country                          ?  test   0.750000 0.310345 0.439024
+native-country                     Mexico train   0.500000 0.200000 0.285714
+native-country                     Mexico  test   0.888889 0.275862 0.421053
+native-country                Philippines train   0.769231 0.222222 0.344828
+native-country                Philippines  test   0.500000 0.181818 0.266667
+native-country                       Cuba train   1.000000 0.100000 0.181818
+native-country                       Cuba  test   0.666667 0.285714 0.400000
+native-country                   Columbia train   0.000000 0.000000 0.000000
+native-country                   Columbia  test   1.000000 0.000000 0.000000
+native-country                      Haiti train   0.000000 0.000000 0.000000
+native-country                      Haiti  test   1.000000 0.000000 0.000000
+native-country                      Italy train   0.666667 0.095238 0.166667
+native-country                      Italy  test   1.000000 0.000000 0.000000
+native-country                   Portugal train   0.000000 0.000000 0.000000
+native-country                   Portugal  test   1.000000 0.000000 0.000000
+native-country                El-Salvador train   0.666667 0.250000 0.363636
+native-country                El-Salvador  test   1.000000 0.200000 0.333333
+native-country                      India train   0.866667 0.406250 0.553191
+native-country                      India  test   0.000000 0.000000 0.000000
+native-country                    Ireland train   1.000000 0.000000 0.000000
+native-country                    Ireland  test   1.000000 1.000000 1.000000
+native-country                      South train   0.666667 0.428571 0.521739
+native-country                      South  test   1.000000 0.000000 0.000000
+native-country                    Vietnam train   0.400000 0.400000 0.400000
+native-country                    Vietnam  test   0.500000 0.333333 0.400000
+native-country                    Jamaica train   1.000000 0.200000 0.333333
+native-country                    Jamaica  test   0.333333 0.333333 0.333333
+native-country                   Cambodia train   0.500000 0.166667 0.250000
+native-country                   Cambodia  test   1.000000 0.000000 0.000000
+native-country                  Nicaragua train   1.000000 0.000000 0.000000
+native-country                  Nicaragua  test   1.000000 0.500000 0.666667
+native-country                       Peru train   1.000000 0.000000 0.000000
+native-country                       Peru  test   0.500000 0.250000 0.333333
+native-country                      China train   0.400000 0.166667 0.235294
+native-country                      China  test   1.000000 0.000000 0.000000
+native-country                     France train   1.000000 0.166667 0.285714
+native-country                     France  test   0.000000 1.000000 0.000000
+native-country         Dominican-Republic train   1.000000 0.500000 0.666667
+native-country         Dominican-Republic  test   1.000000 0.250000 0.400000
+native-country                   Thailand train   1.000000 0.000000 0.000000
+native-country                   Thailand  test   1.000000 1.000000 1.000000
+native-country                    England train   0.714286 0.192308 0.303030
+native-country                    England  test   1.000000 0.200000 0.333333
+native-country                     Canada train   0.666667 0.193548 0.300000
+native-country                     Canada  test   1.000000 0.166667 0.285714
+native-country                    Ecuador train   1.000000 0.500000 0.666667
+native-country                    Ecuador  test   1.000000 0.000000 0.000000
+native-country                    Germany train   0.833333 0.161290 0.270270
+native-country                    Germany  test   1.000000 0.500000 0.666667
+native-country                Puerto-Rico train   0.500000 0.333333 0.400000
+native-country                Puerto-Rico  test   0.333333 0.166667 0.222222
+native-country                   Scotland train   1.000000 0.333333 0.500000
+native-country                   Scotland  test   1.000000 1.000000 1.000000
+native-country                 Yugoslavia train   1.000000 0.166667 0.285714
+native-country                 Yugoslavia  test   1.000000 0.000000 0.000000
+native-country                      Japan train   1.000000 0.350000 0.518519
+native-country                      Japan  test   1.000000 0.500000 0.666667
+native-country                       Laos train   1.000000 0.000000 0.000000
+native-country                       Laos  test   1.000000 0.000000 0.000000
+native-country                     Taiwan train   0.800000 0.250000 0.380952
+native-country                     Taiwan  test   1.000000 0.000000 0.000000
+native-country                  Guatemala train   1.000000 0.333333 0.500000
+native-country                  Guatemala  test   1.000000 0.000000 0.000000
+native-country                     Greece train   0.666667 0.666667 0.666667
+native-country                     Greece  test   1.000000 0.000000 0.000000
+native-country                     Poland train   0.750000 0.300000 0.428571
+native-country                     Poland  test   1.000000 0.000000 0.000000
+native-country            Trinadad&Tobago train   0.500000 0.500000 0.500000
+native-country            Trinadad&Tobago  test   1.000000 1.000000 1.000000
+native-country                       Hong train   1.000000 0.000000 0.000000
+native-country                       Hong  test   1.000000 1.000000 1.000000
+native-country                       Iran train   0.833333 0.384615 0.526316
+native-country                       Iran  test   1.000000 1.000000 1.000000
+native-country Outlying-US(Guam-USVI-etc) train   1.000000 1.000000 1.000000
+native-country Outlying-US(Guam-USVI-etc)  test   1.000000 0.500000 0.666667
+native-country                   Honduras train   1.000000 1.000000 1.000000
+native-country                   Honduras  test   1.000000 1.000000 1.000000
+native-country                    Hungary train   0.000000 0.000000 0.000000
+native-country                    Hungary  test   1.000000 0.000000 0.000000
+native-country         Holand-Netherlands train   0.000000 1.000000 0.000000
+native-country         Holand-Netherlands  test   1.000000 1.000000 1.000000
