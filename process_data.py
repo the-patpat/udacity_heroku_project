@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 import dvc.api
 import logging
 from ml.data import process_data
+from utils import MakeFileHandler
 
 # Set up logging
 # Copied and adjusted from
@@ -14,7 +15,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("logs/process_data.log"),
+        MakeFileHandler("logs/process_data.log"),
         logging.StreamHandler()
     ]
 )

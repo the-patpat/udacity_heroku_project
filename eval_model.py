@@ -10,6 +10,7 @@ import logging
 import dvc.api
 import pandas as pd
 from ml.model import inference, compute_model_metrics
+from utils import MakeFileHandler
 
 # Set up logging
 # Copied and adjusted from
@@ -18,7 +19,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("logs/eval_model.log"),
+        MakeFileHandler("logs/eval_model.log"),
         logging.StreamHandler()
     ]
 )

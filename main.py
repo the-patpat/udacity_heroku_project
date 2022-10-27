@@ -15,9 +15,11 @@ from typing import List
 import pandas as pd
 from ml.model import inference
 from ml.data import process_data
+from utils import MakeFileHandler
 
 app = fastapi.FastAPI()
 params = dvc.api.params_show()
+
 class CensusData(BaseModel):
     """
     The data model for the ingestion body
@@ -139,7 +141,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("logs/rest_api.log"),
+        MakeFileHandler("logs/rest_api.log", ),
         logging.StreamHandler()
     ]
 )
