@@ -5,7 +5,6 @@ Author: Patrick
 Date: Oct 2022
 """
 import fastapi
-import dvc.api
 import joblib
 import os
 import logging
@@ -17,6 +16,16 @@ from ml.model import inference
 from ml.data import process_data
 from utils import MakeFileHandler
 
+
+# Need to pull data if we're on heroku
+# DVC can only be imported after this section
+if "DYNO" in os.environ and os.path.isdir(".dvc"):
+    os.system("dvc config core.no_scm true")
+    if os.system("dvc pull") != 0:
+        exit("dvc pull failed")
+    os.system("rm -r .dvc .apt/usr/lib/dvc")
+
+import dvc.api
 app = fastapi.FastAPI()
 params = dvc.api.params_show()
 
@@ -145,13 +154,6 @@ logging.basicConfig(
         logging.StreamHandler()
     ]
 )
-
-# Need to pull data if we're on heroku
-if "DYNO" in os.environ and os.path.isdir(".dvc"):
-    os.system("dvc config core.no_scm true")
-    if os.system("dvc pull") != 0:
-        exit("dvc pull failed")
-    os.system("rm -r .dvc .apt/usr/lib/dvc")
 
 logging.info('Loading LabelBinarizer')
 lb = joblib.load(
